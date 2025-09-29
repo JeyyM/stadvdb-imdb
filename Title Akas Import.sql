@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS title_akas;
 
 CREATE TABLE title_akas (
-  titleId          VARCHAR(12)   NOT NULL,
-  ordering         INT           NOT NULL,
-  title            VARCHAR(1024) NOT NULL,
-  region           VARCHAR(8)    NULL,
-  language         VARCHAR(16)   NULL,
-  types            TEXT          NULL,
-  attributes       TEXT          NULL,
-  isOriginalTitle  TINYINT(1)    NOT NULL,
+  titleId         VARCHAR(12) NOT NULL,
+  ordering        INT NOT NULL,
+  title           VARCHAR(1024) NOT NULL,
+  region          VARCHAR(8) NULL,
+  language        VARCHAR(16) NULL,
+  types           TEXT NULL,
+  attributes      TEXT NULL,
+  isOriginalTitle TINYINT(1) NOT NULL,
   PRIMARY KEY (titleId, ordering)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

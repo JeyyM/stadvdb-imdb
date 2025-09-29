@@ -1,15 +1,13 @@
 DROP TABLE IF EXISTS title_principals;
 
 CREATE TABLE title_principals (
-  tconst      VARCHAR(12) NOT NULL,   -- title ID
-  ordering    INT NOT NULL,           -- credited order
-  nconst      VARCHAR(12) NOT NULL,   -- person ID
-  category    VARCHAR(64) NULL,       -- e.g., actor, director
-  job         VARCHAR(256) NULL,      -- job description
-  characters  TEXT NULL,              -- JSON-like list ["Self"], ["Batman"]
-  PRIMARY KEY (tconst, ordering, nconst),
-  KEY idx_principals_person (nconst),
-  KEY idx_principals_category (category)
+  tconst     VARCHAR(12) NOT NULL,
+  ordering   INT NOT NULL, 
+  nconst     VARCHAR(12) NOT NULL,
+  category   VARCHAR(64) NULL,
+  job        VARCHAR(256) NULL,
+  characters TEXT NULL,
+  PRIMARY KEY (tconst, ordering, nconst)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOAD DATA LOCAL INFILE 'C:\\Users\\asus\\Desktop\\STADVDB Dataset\\title.principals.tsv'
@@ -17,7 +15,7 @@ INTO TABLE title_principals
 CHARACTER SET utf8mb4
 FIELDS TERMINATED BY '\t' ESCAPED BY '\\'
 OPTIONALLY ENCLOSED BY '"'
-LINES TERMINATED BY '\n'          -- use '\r\n' if Windows line endings
+LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (@tconst, @ordering, @nconst, @category, @job, @characters)
 SET

@@ -14,12 +14,12 @@
 DROP TABLE IF EXISTS name_basics;
 
 CREATE TABLE name_basics (
-  nconst           VARCHAR(12)  NOT NULL PRIMARY KEY,
-  primaryName      VARCHAR(255) NOT NULL,
-  birthYear        SMALLINT UNSIGNED NULL,
-  deathYear        SMALLINT UNSIGNED NULL,
-  primaryProfession TEXT NULL,          -- comma-separated list
-  knownForTitles    TEXT NULL           -- comma-separated ttIDs
+  nconst            VARCHAR(12) NOT NULL PRIMARY KEY,
+  primaryName       VARCHAR(255) NOT NULL,
+  birthYear         SMALLINT UNSIGNED NULL,
+  deathYear         SMALLINT UNSIGNED NULL,
+  primaryProfession TEXT NULL,
+  knownForTitles    TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOAD DATA LOCAL INFILE 'C:\\Users\\asus\\Desktop\\STADVDB Dataset\\name.basics.tsv'
