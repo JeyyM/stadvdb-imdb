@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS type_dt;
+
+CREATE TABLE type_dt (
+  typeID INT AUTO_INCREMENT PRIMARY KEY,
+  titleType VARCHAR(32) NOT NULL UNIQUE
+);
+
+INSERT IGNORE INTO type_dt (titleType)
+SELECT DISTINCT titleType
+FROM title_basics
+WHERE titleType IS NOT NULL;
+
+SELECT * FROM type_dt;
