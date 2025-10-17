@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS director_profession_bridge;
 DROP TABLE IF EXISTS profession_dt;
 
 CREATE TABLE profession_dt (

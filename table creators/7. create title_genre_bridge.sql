@@ -4,8 +4,8 @@ CREATE TABLE title_genre_bridge (
   tconst  VARCHAR(12) NOT NULL,
   genreID INT NOT NULL,
   PRIMARY KEY (tconst, genreID),
-  FOREIGN KEY (tconst)  REFERENCES title_basics(tconst),
-  FOREIGN KEY (genreID) REFERENCES genre_dt(genreID)
+  FOREIGN KEY (tconst)  REFERENCES title_basics(tconst) ON DELETE CASCADE,
+  FOREIGN KEY (genreID) REFERENCES genre_dt(genreID) ON DELETE CASCADE
 );
 
 INSERT IGNORE INTO title_genre_bridge (tconst, genreID)

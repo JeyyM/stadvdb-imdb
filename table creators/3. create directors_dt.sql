@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS title_director_bridge;
 DROP TABLE IF EXISTS directors_dt;
 
 CREATE TABLE directors_dt (

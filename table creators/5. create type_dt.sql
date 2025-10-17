@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS title_ft;
 DROP TABLE IF EXISTS type_dt;
 
 CREATE TABLE type_dt (
