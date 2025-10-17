@@ -34,6 +34,7 @@ SET @rank_position := CEIL(@percentile * @totalCount); -- To get the offset inde
 SET @rank_position := GREATEST(@rank_position, 1);
 
 -- min_votes_threshold = numVotes at that rank using ROW_NUMBER()
+-- Needed for the formula
 SELECT numVotes INTO @min_votes_threshold
 FROM (
   SELECT
@@ -45,7 +46,13 @@ FROM (
 WHERE row_num = @rank_position
 LIMIT 1;
 
--- 3) Insert with Bayesian weighted rating
+-- Weighted Rating Formula
+-- weighted_rating = (v / (v + m)) * R + (m / (v + m)) * C
+-- v = number of votes for the title (r.numVotes)
+-- m = minimum votes threshold (95th percentile of vote counts, @min_votes_threshold)
+-- R = average rating for the title (r.averageRating)
+-- C = global mean rating across all titles (@totalMean)
+
 INSERT INTO title_ft
   (tconst, primaryTitle, typeID, runtimeMinutes, averageRating, numVotes, startYear, weightedRating)
 SELECT
@@ -71,5 +78,4 @@ LEFT JOIN title_ratings AS r
   ON r.tconst = b.tconst
 WHERE b.titleType IS NOT NULL;
 
--- 4) Quick peek
 SELECT * FROM title_ft LIMIT 10;
