@@ -10,7 +10,7 @@ CREATE TABLE title_ft (
   startYear SMALLINT UNSIGNED NULL,
   weightedRating DECIMAL(4,2) NULL,
   FOREIGN KEY (typeID) REFERENCES type_dt(typeID)
-);
+) ENGINE=InnoDB;
 
 -- Using SET to create variables since there seems to be some
 -- issues when putting it in a subquery. It just wouldn't let me.

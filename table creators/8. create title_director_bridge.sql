@@ -6,7 +6,7 @@ CREATE TABLE title_director_bridge (
   PRIMARY KEY (tconst, nconst),
   FOREIGN KEY (tconst) REFERENCES title_ft(tconst),
   FOREIGN KEY (nconst) REFERENCES directors_dt(nconst)
-);
+) ENGINE=InnoDB;
 
 INSERT IGNORE INTO title_director_bridge (tconst, nconst)
 SELECT DISTINCT

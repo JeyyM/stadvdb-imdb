@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS profession_dt;
 CREATE TABLE profession_dt (
   professionID INT AUTO_INCREMENT PRIMARY KEY,
   professionName VARCHAR(64) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB;
 
 -- Insert IGNORE to avoid duplicates
 INSERT IGNORE INTO profession_dt (professionName)

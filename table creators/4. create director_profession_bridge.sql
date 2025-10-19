@@ -6,7 +6,7 @@ CREATE TABLE director_profession_bridge (
   PRIMARY KEY (nconst, professionID),
   FOREIGN KEY (nconst) REFERENCES directors_dt(nconst),
   FOREIGN KEY (professionID) REFERENCES profession_dt(professionID)
-);
+) ENGINE=InnoDB;
 
 INSERT IGNORE INTO director_profession_bridge (nconst, professionID)
 SELECT DISTINCT d.nconst, p.professionID

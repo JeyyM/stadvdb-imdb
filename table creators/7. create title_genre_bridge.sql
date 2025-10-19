@@ -6,7 +6,7 @@ CREATE TABLE title_genre_bridge (
   PRIMARY KEY (tconst, genreID),
   FOREIGN KEY (tconst)  REFERENCES title_basics(tconst) ON DELETE CASCADE,
   FOREIGN KEY (genreID) REFERENCES genre_dt(genreID) ON DELETE CASCADE
-);
+) ENGINE=InnoDB;
 
 INSERT IGNORE INTO title_genre_bridge (tconst, genreID)
 SELECT DISTINCT

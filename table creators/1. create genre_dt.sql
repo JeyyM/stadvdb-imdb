@@ -1,9 +1,10 @@
+DROP TABLE IF EXISTS title_genre_bridge;
 DROP TABLE IF EXISTS genre_dt;
 
 CREATE TABLE genre_dt (
   genreID INT AUTO_INCREMENT PRIMARY KEY,
   genreName VARCHAR(16) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB;
 
 -- Insert IGNORE to avoid duplicates
 INSERT IGNORE INTO genre_dt (genreName)
