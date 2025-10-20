@@ -100,3 +100,9 @@ CREATE INDEX idx_title_type ON title_ft(typeID, tconst, weightedRating);
 -- Movie Search
 -- ALTER TABLE title_ft DROP INDEX IF EXISTS idx_title_primaryTitle_fulltext;
 CREATE FULLTEXT INDEX idx_title_primaryTitle_fulltext ON title_ft(primaryTitle);
+
+CREATE TABLE IF NOT EXISTS movie_feature_vector_materialized AS
+SELECT * FROM movie_feature_vector;
+
+CREATE INDEX idx_mat_vec_tconst 
+ON movie_feature_vector_materialized(tconst(12));
