@@ -66,6 +66,67 @@ JOIN masks m ON m.nconst = d.nconst
 SET d.professionCombo = ppd.professionCombo,
     d.profComboMask = m.combo_mask;
 
+-- Create Movie Feature Vector (Base View)
+DROP VIEW IF EXISTS movie_feature_vector;
+
+CREATE VIEW movie_feature_vector AS
+SELECT 
+    t.tconst,
+    t.primaryTitle,
+    -- Normalized numerical attributes
+    ((t.averageRating - stats.min_rating) / (stats.max_rating - stats.min_rating)) AS norm_rating,
+    ((t.numVotes - stats.min_votes) / (stats.max_votes - stats.min_votes)) AS norm_votes,
+    ((t.runtimeMinutes - stats.min_runtime) / (stats.max_runtime - stats.min_runtime)) AS norm_runtime,
+
+    -- Genre binary indicators (1 if movie belongs to the genre, else 0)
+    MAX(CASE WHEN g.genreID = 1 THEN 1 ELSE 0 END) AS genre_Action,
+    MAX(CASE WHEN g.genreID = 2 THEN 1 ELSE 0 END) AS genre_Adult,
+    MAX(CASE WHEN g.genreID = 3 THEN 1 ELSE 0 END) AS genre_Adventure,
+    MAX(CASE WHEN g.genreID = 4 THEN 1 ELSE 0 END) AS genre_Animation,
+    MAX(CASE WHEN g.genreID = 5 THEN 1 ELSE 0 END) AS genre_Biography,
+    MAX(CASE WHEN g.genreID = 6 THEN 1 ELSE 0 END) AS genre_Comedy,
+    MAX(CASE WHEN g.genreID = 7 THEN 1 ELSE 0 END) AS genre_Crime,
+    MAX(CASE WHEN g.genreID = 8 THEN 1 ELSE 0 END) AS genre_Documentary,
+    MAX(CASE WHEN g.genreID = 9 THEN 1 ELSE 0 END) AS genre_Drama,
+    MAX(CASE WHEN g.genreID = 10 THEN 1 ELSE 0 END) AS genre_Family,
+    MAX(CASE WHEN g.genreID = 11 THEN 1 ELSE 0 END) AS genre_Fantasy,
+    MAX(CASE WHEN g.genreID = 12 THEN 1 ELSE 0 END) AS genre_Film_Noir,
+    MAX(CASE WHEN g.genreID = 13 THEN 1 ELSE 0 END) AS genre_Game_Show,
+    MAX(CASE WHEN g.genreID = 14 THEN 1 ELSE 0 END) AS genre_History,
+    MAX(CASE WHEN g.genreID = 15 THEN 1 ELSE 0 END) AS genre_Horror,
+    MAX(CASE WHEN g.genreID = 16 THEN 1 ELSE 0 END) AS genre_Music,
+    MAX(CASE WHEN g.genreID = 17 THEN 1 ELSE 0 END) AS genre_Musical,
+    MAX(CASE WHEN g.genreID = 18 THEN 1 ELSE 0 END) AS genre_Mystery,
+    MAX(CASE WHEN g.genreID = 19 THEN 1 ELSE 0 END) AS genre_News,
+    MAX(CASE WHEN g.genreID = 20 THEN 1 ELSE 0 END) AS genre_Reality_TV,
+    MAX(CASE WHEN g.genreID = 21 THEN 1 ELSE 0 END) AS genre_Romance,
+    MAX(CASE WHEN g.genreID = 22 THEN 1 ELSE 0 END) AS genre_Sci_Fi,
+    MAX(CASE WHEN g.genreID = 23 THEN 1 ELSE 0 END) AS genre_Short,
+    MAX(CASE WHEN g.genreID = 24 THEN 1 ELSE 0 END) AS genre_Sport,
+    MAX(CASE WHEN g.genreID = 25 THEN 1 ELSE 0 END) AS genre_Talk_Show,
+    MAX(CASE WHEN g.genreID = 26 THEN 1 ELSE 0 END) AS genre_Thriller,
+    MAX(CASE WHEN g.genreID = 27 THEN 1 ELSE 0 END) AS genre_War,
+    MAX(CASE WHEN g.genreID = 28 THEN 1 ELSE 0 END) AS genre_Western
+FROM 
+    title_ft AS t
+CROSS JOIN (
+    SELECT 
+        MIN(averageRating) AS min_rating, MAX(averageRating) AS max_rating,
+        MIN(numVotes) AS min_votes, MAX(numVotes) AS max_votes,
+        MIN(runtimeMinutes) AS min_runtime, MAX(runtimeMinutes) AS max_runtime
+    FROM title_ft
+    WHERE numVotes > 1000
+) AS stats
+LEFT JOIN title_genre_bridge AS g ON t.tconst = g.tconst
+WHERE 
+    t.numVotes > 1000 
+    AND t.runtimeMinutes IS NOT NULL
+GROUP BY 
+    t.tconst, t.primaryTitle,
+    stats.min_rating, stats.max_rating, 
+    stats.min_votes, stats.max_votes, 
+    stats.min_runtime, stats.max_runtime;
+
 -- Z-score and Percentile
 -- ALTER TABLE title_ft DROP INDEX IF EXISTS idx_title_ft_avg_rating;
 CREATE INDEX idx_title_ft_avg_rating ON title_ft(averageRating);
