@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS title_principals;
 
 CREATE TABLE title_principals (
-  tconst     VARCHAR(12) NOT NULL,
-  ordering   INT NOT NULL, 
-  nconst     VARCHAR(12) NOT NULL,
-  category   VARCHAR(64) NULL,
-  job        VARCHAR(256) NULL,
+  tconst VARCHAR(12) NOT NULL,
+  ordering INT NOT NULL,
+  nconst VARCHAR(12) NOT NULL,
+  category VARCHAR(64) NULL,
+  job VARCHAR(256) NULL,
   characters TEXT NULL,
   PRIMARY KEY (tconst, ordering, nconst)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS title_episode;
 
 CREATE TABLE title_episode (
-  tconst        VARCHAR(12) NOT NULL PRIMARY KEY,
-  parentTconst  VARCHAR(12) NULL,
-  seasonNumber  INT NULL,
+  tconst VARCHAR(12) NOT NULL PRIMARY KEY,
+  parentTconst VARCHAR(12) NULL,
+  seasonNumber INT NULL,
   episodeNumber INT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -16,7 +16,7 @@ LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (@tconst, @parent, @season, @ep)
 SET
-  tconst        = NULLIF(@tconst,'\\N'),
-  parentTconst  = NULLIF(@parent,'\\N'),
-  seasonNumber  = CAST(NULLIF(@season,'\\N') AS UNSIGNED),
+  tconst = NULLIF(@tconst,'\\N'),
+  parentTconst = NULLIF(@parent,'\\N'),
+  seasonNumber = CAST(NULLIF(@season,'\\N') AS UNSIGNED),
   episodeNumber = CAST(NULLIF(@ep,'\\N') AS UNSIGNED);

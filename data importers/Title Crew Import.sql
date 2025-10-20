@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS title_crew;
 
 CREATE TABLE title_crew (
-  tconst    VARCHAR(12) NOT NULL PRIMARY KEY,
+  tconst VARCHAR(12) NOT NULL PRIMARY KEY,
   directors TEXT NULL,
   writers   TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -15,6 +15,6 @@ LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (@tconst, @directors, @writers)
 SET
-  tconst    = NULLIF(@tconst,'\\N'),
+  tconst = NULLIF(@tconst,'\\N'),
   directors = NULLIF(@directors,'\\N'),
-  writers   = NULLIF(@writers,'\\N');
+  writers = NULLIF(@writers,'\\N');
